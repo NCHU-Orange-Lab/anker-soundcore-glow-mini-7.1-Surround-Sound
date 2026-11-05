@@ -1,0 +1,3 @@
+dist/
+tests/bin/
+tests/*.json
