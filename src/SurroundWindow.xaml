@@ -1,0 +1,117 @@
+<!-- A page inside the main window (left nav「4 聲道環繞」); fonts and colours inherit from it. -->
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Margin="34,28,34,22">
+      <TextBlock Text="4 聲道環繞" FontSize="27" FontWeight="SemiBold"/>
+      <TextBlock TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,8,0,0" LineHeight="21"
+                 Text="電腦的聲音先送到一個多聲道「來源裝置」，程式把它拆成前左、前右、後左、後右，分別送到前方與後方兩組喇叭（各一組 TWS，或各一顆喇叭）。"/>
+
+      <Border Background="#171E28" BorderBrush="#293341" BorderThickness="1" CornerRadius="16" Padding="22,18" Margin="0,20,0,0">
+        <StackPanel>
+          <Grid>
+            <TextBlock Text="1 · 來源裝置" FontSize="16" FontWeight="SemiBold"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+              <Button x:Name="OpenSoundPanel" Content="聲音控制台  ↗" Background="Transparent" Padding="10,6" FontSize="12" Margin="0,0,6,0" ToolTip="在這裡把來源裝置設為預設，並按「設定」選 5.1 或 7.1"/>
+              <Button x:Name="RefreshDevices" Content="↻  重新整理" Background="Transparent" Padding="10,6" FontSize="12"/>
+            </StackPanel>
+          </Grid>
+          <ComboBox x:Name="SourceDevice" Margin="0,14,0,0" AutomationProperties.Name="來源裝置"/>
+          <TextBlock x:Name="SourceFormat" Text="—" Foreground="#A0EEDC" FontSize="12" Margin="0,8,0,0" TextWrapping="Wrap"/>
+          <TextBlock x:Name="SourceHint" TextWrapping="Wrap" Foreground="#E6C890" FontSize="12" Margin="0,6,0,0" LineHeight="19"/>
+        </StackPanel>
+      </Border>
+
+      <Border Background="#171E28" BorderBrush="#293341" BorderThickness="1" CornerRadius="16" Padding="22,18" Margin="0,16,0,0">
+        <StackPanel>
+          <TextBlock Text="2 · 前方與後方喇叭" FontSize="16" FontWeight="SemiBold"/>
+          <TextBlock Text="前方（前左／前右）" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,14,0,6"/>
+          <ComboBox x:Name="FrontDevice" AutomationProperties.Name="前方喇叭"/>
+          <TextBlock Text="後方（後左／後右）" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,12,0,6"/>
+          <ComboBox x:Name="RearDevice" AutomationProperties.Name="後方喇叭"/>
+          <TextBlock x:Name="DeviceHint" TextWrapping="Wrap" Foreground="#E6C890" FontSize="12" Margin="0,10,0,0"/>
+          <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+            <Button x:Name="StartSurround" Content="▶  開始環繞" Background="#294C43" BorderBrush="#416D60" Margin="0,0,8,0"/>
+            <Button x:Name="StopSurround" Content="■  停止" IsEnabled="False"/>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Background="#172A2B" BorderBrush="#31534D" BorderThickness="1" CornerRadius="16" Padding="22,18" Margin="0,16,0,0">
+        <StackPanel>
+          <TextBlock Text="3 · 聲道測試與音量表" FontSize="16" FontWeight="SemiBold"/>
+          <TextBlock TextWrapping="Wrap" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,6,0,10"
+                     Text="開始後按下按鈕，該聲道會響 3 聲「嗶」。用來確認喇叭擺放，以及 TWS 哪一顆是左、哪一顆是右。"/>
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+            <Button x:Name="TestFL" Content="前左" Padding="14,7" Margin="0,0,14,8" MinWidth="70" IsEnabled="False"/>
+            <ProgressBar x:Name="MeterFL" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,8"/>
+            <Button x:Name="TestFR" Grid.Row="1" Content="前右" Padding="14,7" Margin="0,0,14,8" MinWidth="70" IsEnabled="False"/>
+            <ProgressBar x:Name="MeterFR" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,8"/>
+            <Button x:Name="TestRL" Grid.Row="2" Content="後左" Padding="14,7" Margin="0,0,14,8" MinWidth="70" IsEnabled="False"/>
+            <ProgressBar x:Name="MeterRL" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,8"/>
+            <Button x:Name="TestRR" Grid.Row="3" Content="後右" Padding="14,7" Margin="0,0,14,0" MinWidth="70" IsEnabled="False"/>
+            <ProgressBar x:Name="MeterRR" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+          </Grid>
+          <TextBlock x:Name="RearMode" Text="" Foreground="#A0EEDC" FontSize="12" Margin="0,12,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+      </Border>
+
+      <Border Background="#171E28" BorderBrush="#293341" BorderThickness="1" CornerRadius="16" Padding="22,18" Margin="0,16,0,0">
+        <StackPanel>
+          <TextBlock Text="4 · 調整" FontSize="16" FontWeight="SemiBold"/>
+          <Grid Margin="0,14,0,0">
+            <TextBlock Text="前後延遲差"/>
+            <TextBlock x:Name="OffsetText" Text="0 ms · 兩組都不延遲" HorizontalAlignment="Right" Foreground="#A0EEDC"/>
+          </Grid>
+          <Slider x:Name="OffsetSlider" Minimum="-300" Maximum="300" SmallChange="1" LargeChange="10" IsMoveToPointEnabled="True" AutomationProperties.Name="前後延遲差"/>
+          <Grid>
+            <TextBlock Text="← 延後前方" Foreground="{StaticResource Muted}" FontSize="11"/>
+            <TextBlock Text="延後後方 →" Foreground="{StaticResource Muted}" FontSize="11" HorizontalAlignment="Right"/>
+          </Grid>
+          <WrapPanel Margin="0,10,0,0">
+            <Button x:Name="OffsetMinus10" Content="−10" Padding="14,7" Margin="0,0,6,6"/>
+            <Button x:Name="OffsetMinus1" Content="−1" Padding="14,7" Margin="0,0,6,6"/>
+            <Button x:Name="OffsetZero" Content="歸零" Padding="14,7" Margin="0,0,6,6" Background="Transparent"/>
+            <Button x:Name="OffsetPlus1" Content="+1" Padding="14,7" Margin="0,0,6,6"/>
+            <Button x:Name="OffsetPlus10" Content="+10" Padding="14,7" Margin="0,0,6,6"/>
+          </WrapPanel>
+          <Grid Margin="0,12,0,0">
+            <TextBlock Text="前方音量"/>
+            <TextBlock x:Name="FrontLevelText" Text="100%" HorizontalAlignment="Right" Foreground="#A0EEDC"/>
+          </Grid>
+          <Slider x:Name="FrontLevel" Minimum="0" Maximum="150" Value="100" SmallChange="1" LargeChange="10" IsMoveToPointEnabled="True" AutomationProperties.Name="前方音量"/>
+          <Grid Margin="0,6,0,0">
+            <TextBlock Text="後方音量"/>
+            <TextBlock x:Name="RearLevelText" Text="100%" HorizontalAlignment="Right" Foreground="#A0EEDC"/>
+          </Grid>
+          <Slider x:Name="RearLevel" Minimum="0" Maximum="150" Value="100" SmallChange="1" LargeChange="10" IsMoveToPointEnabled="True" AutomationProperties.Name="後方音量"/>
+          <TextBlock Text="一般立體聲內容時，後方播放" Margin="0,16,0,8"/>
+          <WrapPanel>
+            <RadioButton x:Name="FillAmbience" GroupName="RearFill" Content="擴展環繞（建議）" Margin="0,0,22,6"/>
+            <RadioButton x:Name="FillCopy" GroupName="RearFill" Content="複製前方" Margin="0,0,22,6"/>
+            <RadioButton x:Name="FillOff" GroupName="RearFill" Content="不播放" Margin="0,0,0,6"/>
+          </WrapPanel>
+          <TextBlock x:Name="FillHint" TextWrapping="Wrap" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,2,0,0" LineHeight="17"/>
+          <StackPanel x:Name="AmbiencePanel" Margin="0,12,0,0">
+            <Grid>
+              <TextBlock Text="環繞延遲（後方比前方晚）"/>
+              <TextBlock x:Name="AmbienceDelayText" Text="15 ms" HorizontalAlignment="Right" Foreground="#A0EEDC"/>
+            </Grid>
+            <Slider x:Name="AmbienceDelay" Minimum="0" Maximum="40" SmallChange="1" LargeChange="5" IsMoveToPointEnabled="True" AutomationProperties.Name="環繞延遲"/>
+            <Grid Margin="0,6,0,0">
+              <TextBlock Text="環繞強度"/>
+              <TextBlock x:Name="AmbienceLevelText" Text="100%" HorizontalAlignment="Right" Foreground="#A0EEDC"/>
+            </Grid>
+            <Slider x:Name="AmbienceLevel" Minimum="0" Maximum="200" SmallChange="1" LargeChange="10" IsMoveToPointEnabled="True" AutomationProperties.Name="環繞強度"/>
+          </StackPanel>
+          <TextBlock TextWrapping="Wrap" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0"
+                     Text="來源有真正的環繞聲道時一律直接播放；後方安靜超過 1 秒才會補上，環繞聲道一出現立即切回。"/>
+        </StackPanel>
+      </Border>
+
+      <TextBlock x:Name="SurroundStatus" Text="準備就緒" Foreground="#8194A7" FontSize="12" Margin="2,16,0,0" TextWrapping="Wrap"/>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
